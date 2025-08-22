@@ -1,4 +1,4 @@
--- Week 8 coding assignemtn
+-- Week 8 coding assignment
 
 DROP TABLE IF EXISTS project_category;
 DROP TABLE IF EXISTS material;
