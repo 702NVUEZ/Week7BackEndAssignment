@@ -13,10 +13,13 @@ public class ProjectsApp {
 	//week 9 
 	private Scanner scanner = new Scanner(System.in);
 	  private ProjectService projectService = new ProjectService();
+	  private Project curProject;
 
 	  // @formatter:off
 	  private List<String> operations = List.of(
-	      "1) Add a project"
+	      "1) Add a project",
+		  "2) List projects",
+		  "3) Select a project"
 	  );
 	  
 	  // @formatter:on
@@ -39,6 +42,17 @@ public class ProjectsApp {
 		          case 1:
 		            createProject();
 		            break;
+		            
+		           //week 10
+		          case 2:
+		            listProjects();
+		            break;
+
+		          //week 10
+		          case 3:
+		            selectProject();
+		            break;
+
 
 		          default:
 		            System.out.println("\n" + selection + " is not a valid selection. Try again.");
@@ -51,6 +65,30 @@ public class ProjectsApp {
  }
 }
 
+	  //week 10
+	  private void selectProject() {
+		    listProjects();
+		    Integer projectId = getIntInput("Enter a project ID to select a project");
+
+		    //Unselects the current project. 
+
+		    curProject = null;
+
+		    //This will throw an exception if an invalid project ID is entered. 
+		    curProject = projectService.fetchProjectById(projectId);
+		    
+		  }//end method
+	  
+	  
+	  //week 10
+	  private void listProjects() {
+		    List<Project> projects = projectService.fetchAllProjects();
+
+		    System.out.println("\nProjects:");
+
+		    projects.forEach(project -> System.out
+		        .println("   " + project.getProjectId() + ": " + project.getProjectName()));
+		  }//end method
 	  
 	  
 	  private void createProject() {
@@ -128,13 +166,10 @@ public class ProjectsApp {
 	  private void printOperations() {
 		    System.out.println("\nThese are the available selections. Press the Enter key to quit:");
 
-		    /* With Lambda expression */
+
 		    operations.forEach(line -> System.out.println("  " + line));
 
-		    /* With enhanced for loop */
-		    // for(String line : operations) {
-		    // System.out.println(" " + line);
-		    // }
+		  
 		  } //end method
 	  
 }//end class
